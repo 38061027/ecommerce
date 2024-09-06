@@ -1,0 +1,17 @@
+.containerForm{
+    display: flex;
+    justify-content: center;
+    align-items:center;
+    height: 600px;
+}
+.formContent{
+    display: flex;
+    flex-direction: column;
+    width: 420px;
+}
+.btnSubmit{
+    padding: 10px;
+    background-color: blue;
+    border: transparent;
+    border-radius: 10px;
+}
