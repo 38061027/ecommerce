@@ -40,6 +40,7 @@ app.get("/api/data", (req, res) => {
 app.post("/api/data", (req, res) => {
   const query =
     "INSERT INTO products (name, quantity, description, price, status) VALUES (?, ?, ?, ?,?)";
+    const { name, quantity, description, price, status } = req.body;
   connection.query(
     query,
     [name, quantity, description, price, status],
