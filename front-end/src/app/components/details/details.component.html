@@ -1,1 +1,12 @@
-<p>details works!</p>
+<div class="contentDetail">
+    <span class="material-symbols-outlined" id="goback" routerLink="">
+        arrow_back
+        </span>
+        <h1>Detalhes do produto</h1>
+    <div class="productDetail">
+        <h2>{{product?.name}}</h2>
+        <p>{{product?.description}}</p>
+        <h2>R$ {{product?.price}}</h2>
+        <p>Ainda restam {{product?.quantity}} {{product?.quantity == 1 ? "unidade": "unidades"}}</p>
+    </div>
+</div>
