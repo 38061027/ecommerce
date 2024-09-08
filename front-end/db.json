@@ -1,0 +1,41 @@
+{
+  "products": [
+    {
+      "id": "1",
+      "name": "Iphone 15",
+      "description": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the",
+      "price": 4.2,
+      "quantity": 2
+    },
+    {
+      "id": "2",
+      "name": "Smart tv ",
+      "description": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the",
+      "price": 3.2,
+      "quantity": 2
+    },
+    {
+      "id": "3",
+      "name": "Notebook",
+      "description": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the",
+      "price": 2.222,
+      "quantity": 2
+    },
+    {
+      "id": "4",
+      "name": "Mouse ",
+      "description": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the",
+      "price": 4.3433,
+      "quantity": 2
+    }
+  ],
+  "cart": [
+    {
+      "id": "1",
+      "name": "Iphone 15",
+      "description": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the",
+      "price": 4.2,
+      "quantity": 5
+    }
+  ]
+}
