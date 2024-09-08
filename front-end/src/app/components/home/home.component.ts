@@ -9,7 +9,7 @@ import { SharedService } from 'src/app/service/shared.service';
 })
 export class HomeComponent implements OnInit{
 
-  counterCart:number = 2;
+  counterCart:number = 0;
   products!:IProducts[];
 
 
@@ -17,6 +17,7 @@ constructor(private service: SharedService){}
 
   ngOnInit(): void {
     this.getProducts();
+    this.service.getCart().subscribe(res => this.counterCart = res.length)
   }
   getProducts(){
     return this.service.getProducts().subscribe(res => this.products = res)
