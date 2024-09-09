@@ -40,7 +40,7 @@ app.get("/api/data", (req, res) => {
 app.post("/api/data", (req, res) => {
   const query =
     "INSERT INTO products (name, quantity, description, price, status) VALUES (?, ?, ?, ?,?)";
-    const { name, quantity, description, price, status } = req.body;
+  const { name, quantity, description, price, status } = req.body;
   connection.query(
     query,
     [name, quantity, description, price, status],
@@ -72,6 +72,28 @@ app.put("/api/data:id", (req, res) => {
       }
     }
   );
+});
+
+app.patch("/api/data/:id", (req, res) => {
+  const id = req.params.id;
+  const { quantity } = req.body;
+
+  if (quantity === undefined) {
+    return res.status(400).json({ error: "Quantity is required" });
+  }
+
+  const query = "UPDATE products SET quantity = ? WHERE id = ?";
+  connection.query(query, [quantity, id], (err, results) => {
+    if (err) {
+      return res.status(500).send(err);
+    }
+
+    if (results.affectedRows === 0) {
+      return res.status(404).json({ error: "Product not found" });
+    }
+
+    res.status(200).json({ id, quantity });
+  });
 });
 
 app.delete("/api/data/:id", (req, res) => {
