@@ -28,7 +28,7 @@ export class CartComponent implements OnInit {
     this.service.updateQuantity(item.id, item.quantity).subscribe();
   }
   decremetQuantity(item: IProducts) {
-    if (item.quantity > 0) {
+    if (item.quantity > 1) {
       item.quantity--;
       this.service.updateQuantity(item.id, item.quantity).subscribe();
     }
