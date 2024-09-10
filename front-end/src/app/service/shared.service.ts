@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { Observable } from 'rxjs';
 import { IProducts } from '../interface/interface.';
 
 @Injectable({
@@ -11,7 +11,11 @@ export class SharedService {
   apiUrlCart: string = 'http://localhost:3000/api/cart';
   urlJsonServer: string = 'http://localhost:3000/products';
 
+
+
   constructor(private http: HttpClient) {}
+
+
 
   getProducts(): Observable<IProducts[]> {
     return this.http.get<IProducts[]>(this.apiUrlData);
@@ -31,6 +35,9 @@ export class SharedService {
 
   updateQuantity(id: number, newQuantity: number): Observable<any> {
     return this.http.patch(`${this.apiUrlCart}/${id}`, { quantity: newQuantity });
+  }
+  deleteCart(id:number):Observable<IProducts>{
+   return this.http.delete<IProducts>(`${this.apiUrlCart}/${id}`)
   }
   
 }
