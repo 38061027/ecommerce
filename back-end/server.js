@@ -144,6 +144,22 @@ app.patch("/api/cart/:id", (req, res) => {
   });
 });
 
+
+app.delete("/api/cart/:id", (req, res) => {
+  const id = req.params.id;
+  connection.query(
+    "DELETE FROM cart WHERE id = ?",
+    [id],
+    (err, results) => {
+      if (err) {
+        res.status(500).send(err);
+      } else {
+        res.status(200).send({});
+      }
+    }
+  );
+});
+
 app.listen(port, () => {
   console.log(`Seu servidor está rodando na porta ${port}`);
 });
