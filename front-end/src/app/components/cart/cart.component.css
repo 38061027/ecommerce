@@ -1,0 +1,26 @@
+.containerCart {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+}
+
+.cart {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid green;
+  width: 550px;
+}
+.btnQtd button {
+  cursor: pointer;
+  font-weight: bolder;
+  padding: 10px 15px;
+}
+.btnQtd {
+  display: flex;
+  gap: 10px;
+}
