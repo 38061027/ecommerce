@@ -74,28 +74,6 @@ app.put("/api/data:id", (req, res) => {
   );
 });
 
-app.patch("/api/data/:id", (req, res) => {
-  const id = req.params.id;
-  const { quantity } = req.body;
-
-  if (quantity === undefined) {
-    return res.status(400).json({ error: "Quantity is required" });
-  }
-
-  const query = "UPDATE products SET quantity = ? WHERE id = ?";
-  connection.query(query, [quantity, id], (err, results) => {
-    if (err) {
-      return res.status(500).send(err);
-    }
-
-    if (results.affectedRows === 0) {
-      return res.status(404).json({ error: "Product not found" });
-    }
-
-    res.status(200).json({ id, quantity });
-  });
-});
-
 app.delete("/api/data/:id", (req, res) => {
   const id = req.params.id;
   connection.query(
@@ -109,6 +87,61 @@ app.delete("/api/data/:id", (req, res) => {
       }
     }
   );
+});
+
+// Cart
+
+app.get("/api/cart", (req, res) => {
+  const query = "SELECT * FROM cart";
+  connection.query(query, (err, results) => {
+    if (err) {
+      res.status(500).send(err);
+    } else {
+      res.status(200).json(results);
+    }
+  });
+});
+
+app.post("/api/cart", (req, res) => {
+  const query =
+    "INSERT INTO cart (id, name, quantity, description, price, status) VALUES (?, ?, ?, ?,?, ?)";
+  const { id, name, quantity, description, price, status } = req.body;
+
+  connection.query(
+    query,
+    [id, name, quantity, description, price, status],
+    (err, results) => {
+      if (err) {
+        res.status(500).send(err);
+      } else {
+        res
+          .status(200)
+          .json({ id, name, quantity, description, price, status });
+      }
+    }
+  );
+});
+
+app.patch("/api/cart/:id", (req, res) => {
+  const id = req.params.id;
+  const { quantity } = req.body;
+
+  if (quantity === undefined) {
+    return res.status(400).json({ error: "Quantity is required" });
+  }
+
+  const query = "UPDATE cart SET quantity = ? WHERE id = ?";
+  connection.query(query, [quantity, id], (err, results) => {
+    if (err) {
+      return res.status(500).send(err);
+    }
+
+    if (results.affectedRows === 0) {
+      return res.status(404).json({ error: "Product not found" });
+    }
+
+    res.status(200).json({ id, quantity });
+  });
 });
 
 app.listen(port, () => {
