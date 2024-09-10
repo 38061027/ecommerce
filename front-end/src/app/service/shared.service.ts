@@ -7,25 +7,30 @@ import { IProducts } from '../interface/interface.';
   providedIn: 'root',
 })
 export class SharedService {
-  apiUrl: string = 'http://localhost:3000/api/data';
+  apiUrlData: string = 'http://localhost:3000/api/data';
+  apiUrlCart: string = 'http://localhost:3000/api/cart';
   urlJsonServer: string = 'http://localhost:3000/products';
 
   constructor(private http: HttpClient) {}
 
   getProducts(): Observable<IProducts[]> {
-    return this.http.get<IProducts[]>(this.urlJsonServer);
+    return this.http.get<IProducts[]>(this.apiUrlData);
   }
 
   sendProducts(product: IProducts): Observable<IProducts> {
-    return this.http.post<IProducts>(`${this.urlJsonServer}`, product);
+    return this.http.post<IProducts>(`${this.apiUrlData}`, product);
   }
 
   getCart(): Observable<IProducts[]> {
-    return this.http.get<IProducts[]>('http://localhost:3000/cart');
+    return this.http.get<IProducts[]>(this.apiUrlCart);
+  }
+
+  sendToCart(product:IProducts):Observable<IProducts>{
+    return this.http.post<IProducts>(`${this.apiUrlCart}`, product);
   }
 
   updateQuantity(id: number, newQuantity: number): Observable<any> {
-    return this.http.patch(`http://localhost:3000/cart/${id}`, { quantity: newQuantity });
+    return this.http.patch(`${this.apiUrlCart}/${id}`, { quantity: newQuantity });
   }
   
 }
