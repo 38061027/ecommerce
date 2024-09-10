@@ -16,8 +16,14 @@
 
             <div class="buttons">
               <button class="detailsBtn" [routerLink]="['/details', product.id]">Detalhes</button>
-              <button class="cartBtn">Adiionar ao carrinho</button>
+              <button class="cartBtn" (click)="sendToCart(product)">Adicionar ao carrinho</button>
             </div>
         </div>
+  </div>
+  <div *ngIf="existingMsg" class="btnExistingMsg">
+    <h3>Produto já inserido no carrinho</h3>
+  </div>
+  <div *ngIf="insertToCart" class="btnInsertToCart">
+    <h3>Produto inserido no carrinho</h3>
   </div>
 </main>

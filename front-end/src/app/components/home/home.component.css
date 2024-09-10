@@ -1,6 +1,7 @@
 .container{
     width: 100%;
     height: 100vh;
+    position: relative;
 }
 .nav{
     display: flex;
@@ -69,4 +70,20 @@ top: -5px;
 .detailsBtn:hover{
    transform: scale(1.2);
    transition: 0.5s;
+}
+
+.btnExistingMsg{
+    position: absolute;
+    top: 60px;
+    right: 15px;
+    z-index: 1;
+    color: red;
+}
+.btnInsertToCart{
+    position: absolute;
+    top: 60px;
+    right: 15px;
+    z-index: 1;
+    color: green;
+    
 }

@@ -5,22 +5,41 @@ import { SharedService } from 'src/app/service/shared.service';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
-  styleUrls: ['./home.component.css']
+  styleUrls: ['./home.component.css'],
 })
-export class HomeComponent implements OnInit{
+export class HomeComponent implements OnInit {
+  counterCart: number = 0;
+  products!: IProducts[];
+  existingMsg: boolean = false;
+  insertToCart: boolean = false;
 
-  counterCart:number = 0;
-  products!:IProducts[];
-
-
-constructor(private service: SharedService){}
+  constructor(private service: SharedService) {}
 
   ngOnInit(): void {
     this.getProducts();
-    this.service.getCart().subscribe(res => this.counterCart = res.length)
+    this.service.getCart().subscribe((res) => (this.counterCart = res.length));
   }
-  getProducts(){
-    return this.service.getProducts().subscribe(res => this.products = res)
+  getProducts() {
+    return this.service.getProducts().subscribe((res) => (this.products = res));
   }
-  
+  sendToCart(product: IProducts) {
+    this.service.getCart().subscribe((res: IProducts[]) => {
+      const existing = res.some((el) => el.id === product.id);
+
+      if (existing) {
+        this.existingMsg = true;
+        setTimeout(() => {
+          this.existingMsg = false;
+        }, 2500);
+      } else {
+        product.quantity = 1;
+        this.service.sendToCart(product).subscribe(() => {
+          this.insertToCart = true;
+          setTimeout(() => {
+            this.insertToCart = false;
+          }, 2500);
+        });
+      }
+    });
+  }
 }
