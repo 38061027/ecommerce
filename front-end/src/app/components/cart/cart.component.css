@@ -1,10 +1,11 @@
 .containerCart {
   display: flex;
   flex-direction: column;
-  width: 100%;
   align-items: center;
+  width: 350px;
   justify-content: center;
   gap: 20px;
+  height: 100%;
 }
 
 .cart {
@@ -12,15 +13,22 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  border: 1px solid green;
-  width: 550px;
+  width: 100%;
+  border-top: 1px solid black;
 }
 .btnQtd button {
   cursor: pointer;
   font-weight: bolder;
-  padding: 10px 15px;
+  padding: 6px 10px;
 }
 .btnQtd {
   display: flex;
   gap: 10px;
+  justify-content: center;
+  align-items: center;
+}
+#btnDeleteCart {
+  border: transparent;
+  color: red;
+  cursor: pointer;
 }

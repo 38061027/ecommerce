@@ -9,6 +9,7 @@ import { SharedService } from 'src/app/service/shared.service';
 })
 export class CartComponent implements OnInit {
   cart!: IProducts[];
+  totalValue:number = 0;
   constructor(private service: SharedService) {}
 
   ngOnInit(): void {
@@ -16,7 +17,10 @@ export class CartComponent implements OnInit {
   }
 
   getCart() {
-    this.service.getCart().subscribe((res: IProducts[]) => (this.cart = res));
+    this.service.getCart().subscribe((res: IProducts[]) => {
+      this.cart = res,
+      this.totalValue = res.reduce((a,b)=>a+b.price,0)
+    });
   }
 
   incrementQuantity(item: IProducts) {
@@ -28,5 +32,8 @@ export class CartComponent implements OnInit {
       item.quantity--;
       this.service.updateQuantity(item.id, item.quantity).subscribe();
     }
+  }
+  deleteCart(id: number) {
+    this.service.deleteCart(id).subscribe(() => this.getCart());
   }
 }
