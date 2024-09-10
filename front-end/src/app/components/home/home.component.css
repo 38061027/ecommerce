@@ -87,3 +87,10 @@ top: -5px;
     color: green;
     
 }
+
+.activeCart{
+    position:absolute;
+    background-color: gray;
+    right: 0;
+    border-bottom-left-radius: 10px;
+}

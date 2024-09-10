@@ -2,23 +2,36 @@
   <nav class="nav">
     <h1 class="title">Ecommerce</h1>
     <div class="search">
-      <input type="text" placeholder="Pesquisar..."/>
+      <input type="text" placeholder="Pesquisar..." />
     </div>
-    <span class="material-symbols-outlined" id="cartIcon" routerLink="cart"> shopping_cart <a class="counter">{{counterCart}}</a></span>
+    <span class="material-symbols-outlined" id="cartIcon" (click)="cartActive()">
+      shopping_cart <a class="counter">{{ counterCart }}</a></span
+    >
   </nav>
 
-  <div class="containerProducts">
-        <div class="productContent" *ngFor="let product of products">
-            <h2>{{product.name}}</h2>
-            <p>{{product.description}}</p>
-            <h2>R$ {{product.price}}</h2>
-            <p>Ainda restam {{product.quantity}} {{product.quantity == 1 ? "unidade": "unidades"}}</p>
+  <div *ngIf="active" class="activeCart">
+<app-cart></app-cart>
+  </div>
 
-            <div class="buttons">
-              <button class="detailsBtn" [routerLink]="['/details', product.id]">Detalhes</button>
-              <button class="cartBtn" (click)="sendToCart(product)">Adicionar ao carrinho</button>
-            </div>
-        </div>
+  <div class="containerProducts">
+    <div class="productContent" *ngFor="let product of products">
+      <h2>{{ product.name }}</h2>
+      <p>{{ product.description }}</p>
+      <h2>R$ {{ product.price }}</h2>
+      <p>
+        Ainda restam {{ product.quantity }}
+        {{ product.quantity == 1 ? "unidade" : "unidades" }}
+      </p>
+
+      <div class="buttons">
+        <button class="detailsBtn" [routerLink]="['/details', product.id]">
+          Detalhes
+        </button>
+        <button class="cartBtn" (click)="sendToCart(product)">
+          Adicionar ao carrinho
+        </button>
+      </div>
+    </div>
   </div>
   <div *ngIf="existingMsg" class="btnExistingMsg">
     <h3>Produto já inserido no carrinho</h3>
