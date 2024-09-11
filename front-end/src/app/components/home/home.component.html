@@ -2,15 +2,20 @@
   <nav class="nav">
     <h1 class="title">Ecommerce</h1>
     <div class="search">
-      <input type="text" placeholder="Pesquisar..." />
+      <input id="typeahead-basic" type="text" class="form-control" placeholder="Pesquisar..." [(ngModel)]="model" [ngbTypeahead]="search" />
+      
     </div>
-    <span class="material-symbols-outlined" id="cartIcon" (click)="cartActive()">
+    <span
+      class="material-symbols-outlined"
+      id="cartIcon"
+      (click)="cartActive()"
+    >
       shopping_cart <a class="counter">{{ counterCart }}</a></span
     >
   </nav>
 
   <div *ngIf="active" class="activeCart">
-<app-cart></app-cart>
+      <app-cart></app-cart>
   </div>
 
   <div class="containerProducts">

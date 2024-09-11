@@ -1,4 +1,17 @@
-import { Component, OnInit } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  OnInit,
+  Output,
+  ViewChild,
+} from '@angular/core';
+import {
+  debounceTime,
+  distinctUntilChanged,
+  map,
+  Observable,
+  OperatorFunction,
+} from 'rxjs';
 import { IProducts } from 'src/app/interface/interface.';
 import { SharedService } from 'src/app/service/shared.service';
 
@@ -12,17 +25,39 @@ export class HomeComponent implements OnInit {
   products!: IProducts[];
   existingMsg: boolean = false;
   insertToCart: boolean = false;
-  active:boolean = false;
+  active: boolean = false;
+  model: any;
 
   constructor(private service: SharedService) {}
 
   ngOnInit(): void {
+    this.service.counterCart$.subscribe((res) => (this.counterCart = res));
     this.getProducts();
-    this.service.getCart().subscribe((res) => (this.counterCart = res.length));
   }
-  cartActive(){
-    this.active = true
+  cartActive() {
+    if (!this.active) {
+      this.active = true;
+    } else {
+      this.active = false;
+    }
   }
+  search: OperatorFunction<string, readonly string[]> = (
+    text$: Observable<string>
+  ) =>
+    text$.pipe(
+      debounceTime(500),
+      distinctUntilChanged(),
+      map((term) =>
+        term.length < 2
+          ? []
+          : this.products
+              .filter(
+                (v) => v.name.toLowerCase().indexOf(term.toLowerCase()) > -1
+              )
+              .slice(0, 10)
+              .map((product) => product.name)
+      )
+    );
   getProducts() {
     return this.service.getProducts().subscribe((res) => (this.products = res));
   }
@@ -37,7 +72,7 @@ export class HomeComponent implements OnInit {
         }, 2500);
       } else {
         product.quantity = 1;
-        this.service.sendToCart(product).subscribe(() => {
+        this.service.sendToCart(product).subscribe((res: IProducts) => {
           this.counterCart++;
           this.insertToCart = true;
           setTimeout(() => {
