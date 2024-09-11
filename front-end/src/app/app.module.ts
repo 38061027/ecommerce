@@ -11,6 +11,8 @@ import {HttpClientModule} from "@angular/common/http";
 import { FormComponent } from './components/form/form.component'
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MaterialModule } from './material/material/material.module';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { BootstrapModule } from './ng-bootstrap/bootstrap/bootstrap.module';
 
 @NgModule({
   declarations: [
@@ -27,7 +29,9 @@ import { MaterialModule } from './material/material/material.module';
     HttpClientModule,
     ReactiveFormsModule,
     MaterialModule,
-    FormsModule
+    FormsModule,
+    NgbModule,
+    BootstrapModule
   ],
   providers: [],
   bootstrap: [AppComponent]
