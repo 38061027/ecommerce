@@ -12,7 +12,7 @@ import {
   Observable,
   OperatorFunction,
 } from 'rxjs';
-import { IProducts } from 'src/app/interface/interface.';
+import { IProducts } from 'src/app/core/interface/interface.';
 import { SharedService } from 'src/app/service/shared.service';
 
 @Component({

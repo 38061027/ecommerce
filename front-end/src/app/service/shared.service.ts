@@ -1,37 +1,47 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, OnInit } from '@angular/core';
 import { BehaviorSubject, Observable, switchMap, tap } from 'rxjs';
-import { IProducts } from '../interface/interface.';
+import { IProducts } from '../core/interface/interface.';
 
 @Injectable({
   providedIn: 'root',
 })
-export class SharedService{
-  apiUrlData: string = 'http://localhost:3000/api/data';
-  apiUrlCart: string = 'http://localhost:3000/api/cart';
-  urlJsonServer: string = 'http://localhost:3000/products';
-   private counterCart = new BehaviorSubject<number>(0);
-   counterCart$ = this.counterCart.asObservable();
+export class SharedService {
+  private apiUrlData: string = 'http://localhost:3000/api/data';
+  private apiUrlCart: string = 'http://localhost:3000/api/cart';
+  private apiUrlUser: string = 'http://localhost:3000/api/user';
+  private urlJsonServer: string = 'http://localhost:3000/products';
+  private counterCart = new BehaviorSubject<number>(0);
+  counterCart$ = this.counterCart.asObservable();
+
+  private formState = new BehaviorSubject<any>([]);
+  formState$ = this.formState.asObservable();
 
   constructor(private http: HttpClient) {
-    this.getCart().subscribe(res => this.counterCart.next(res.length))
+    this.getCart().subscribe((res) => this.counterCart.next(res.length));
   }
+
+  getStateForm(form: any) {
+    this.formState.next(form);
+  }
+
+  //Req do Products
 
   getProducts(): Observable<IProducts[]> {
     return this.http.get<IProducts[]>(this.apiUrlData);
   }
-
-
   sendProducts(product: IProducts): Observable<IProducts> {
     return this.http.post<IProducts>(`${this.apiUrlData}`, product);
   }
 
+  //Req do Cart
+
   getCart(): Observable<IProducts[]> {
-    return this.http.get<IProducts[]>(this.apiUrlCart)
+    return this.http.get<IProducts[]>(this.apiUrlCart);
   }
 
   sendToCart(product: IProducts): Observable<IProducts> {
-    return this.http.post<IProducts>(this.apiUrlCart, product)
+    return this.http.post<IProducts>(this.apiUrlCart, product);
   }
   updateQuantity(id: number, newQuantity: number): Observable<any> {
     return this.http.patch(`${this.apiUrlCart}/${id}`, {
@@ -42,4 +52,9 @@ export class SharedService{
     return this.http.delete<IProducts>(`${this.apiUrlCart}/${id}`);
   }
 
+  //Req do users
+
+  sendUser(user: any): Observable<any> {
+    return this.http.post<any>(this.apiUrlUser,user);
+  }
 }

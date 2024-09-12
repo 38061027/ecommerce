@@ -8,11 +8,14 @@ import { DetailsComponent } from './components/details/details.component';
 import { CartComponent } from './components/cart/cart.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {HttpClientModule} from "@angular/common/http";
-import { FormComponent } from './components/form/form.component'
+import { FormComponent } from './core/forms/form/form.component'
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MaterialModule } from './material/material/material.module';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { BootstrapModule } from './ng-bootstrap/bootstrap/bootstrap.module';
+import { MenagerComponent } from './components/menager/menager.component';
+import { LoginComponent } from './components/login/login.component';
+import { FormRegisterComponent } from './core/forms/form-register/form-register.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +23,10 @@ import { BootstrapModule } from './ng-bootstrap/bootstrap/bootstrap.module';
     HomeComponent,
     DetailsComponent,
     CartComponent,
-    FormComponent
+    FormComponent,
+    MenagerComponent,
+    LoginComponent,
+    FormRegisterComponent
   ],
   imports: [
     BrowserModule,

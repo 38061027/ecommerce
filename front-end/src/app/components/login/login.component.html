@@ -1,0 +1,17 @@
+<div class="contentLogin">
+  <h1>Entre com sua conta!</h1>
+  <div class="contentForm">
+    <form [formGroup]="login" (ngSubmit)="onSubmit()" class="formLogin">
+      <mat-form-field class="example-full-width">
+        <mat-label>Qual o seu nome?</mat-label>
+        <input matInput type="text" formControlName="name" />
+      </mat-form-field>
+      <mat-form-field class="example-full-width">
+        <mat-label>Digite sua senha</mat-label>
+        <input matInput type="password" formControlName="password" />
+      </mat-form-field>
+      <button mat-flat-button type="submit">Fazer Login</button>
+    </form>
+    <button class="btnSignUp">Criar conta</button>
+  </div>
+</div>
