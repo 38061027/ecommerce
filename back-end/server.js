@@ -160,6 +160,41 @@ app.delete("/api/cart/:id", (req, res) => {
   );
 });
 
+
+// User API
+
+app.get("/api/user", (req, res) => {
+  const query = "SELECT * FROM user";
+  connection.query(query, (err, results) => {
+    if (err) {
+      res.status(500).send(err);
+    } else {
+      res.status(200).json(results);
+    }
+  });
+});
+
+
+app.post("/api/user", (req, res) => {
+  const query =
+    "INSERT INTO user (name, hierarchy, email, password) VALUES (?, ?, ?, ?)";
+  const {name, hierarchy, email, password } = req.body;
+
+  connection.query(
+    query,
+    [name, hierarchy, email, password],
+    (err, results) => {
+      if (err) {
+        res.status(500).send(err);
+      } else {
+        res
+          .status(200)
+          .json({name, hierarchy, email, password });
+      }
+    }
+  );
+});
+
 app.listen(port, () => {
   console.log(`Seu servidor está rodando na porta ${port}`);
 });
