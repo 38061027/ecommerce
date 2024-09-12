@@ -54,7 +54,7 @@ app.post("/api/data", (req, res) => {
   );
 });
 
-app.put("/api/data:id", (req, res) => {
+app.put("/api/data/:id", (req, res) => {
   const id = req.params.id;
   const { name, quantity, description, price, status } = req.body;
   const query =
