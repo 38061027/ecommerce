@@ -1,1 +1,22 @@
-<p>form-register works!</p>
+<div class="contentFormRegister">
+    <h1>Formulário de resgistro</h1>
+  <form class="formRegister" [formGroup]="registerUser" (ngSubmit)="onRegister()">
+    <mat-form-field class="example-full-width">
+      <mat-label>Digite seu nome</mat-label>
+      <input type="text" matInput formControlName="name" required/>
+    </mat-form-field>
+    <mat-form-field class="example-full-width">
+      <mat-label>Digite sua hierarquia</mat-label>
+      <input type="text" matInput formControlName="hierarchy" required/>
+    </mat-form-field>
+    <mat-form-field class="example-full-width">
+      <mat-label>Digite um email</mat-label>
+      <input type="email" matInput formControlName="email" required/>
+    </mat-form-field>
+    <mat-form-field class="example-full-width">
+      <mat-label>Crie uma senha</mat-label>
+      <input type="password" matInput formControlName="password" required/>
+    </mat-form-field>
+    <button type="submit" class="btnRegister">Registrar-se</button>
+  </form>
+</div>
