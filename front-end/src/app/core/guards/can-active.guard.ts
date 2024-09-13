@@ -14,6 +14,9 @@ export class CanActiveGuard implements CanActivate {
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
   ): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
+    if(route.queryParams['hierarchy'] == 'admin'){
+      return true
+    }
     return false;
   }
 }

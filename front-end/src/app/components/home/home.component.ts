@@ -5,6 +5,7 @@ import {
   Output,
   ViewChild,
 } from '@angular/core';
+import { Router } from '@angular/router';
 import {
   debounceTime,
   distinctUntilChanged,
@@ -12,7 +13,7 @@ import {
   Observable,
   OperatorFunction,
 } from 'rxjs';
-import { IProducts } from 'src/app/core/interface/interface.';
+import { IProducts, IUsers } from 'src/app/core/interface/interface.';
 import { SharedService } from 'src/app/service/shared.service';
 
 @Component({
@@ -27,12 +28,32 @@ export class HomeComponent implements OnInit {
   insertToCart: boolean = false;
   active: boolean = false;
   model: any;
+  userString = localStorage.getItem('user');
+  userStr: string = '';
 
-  constructor(private service: SharedService) {}
+  constructor(private service: SharedService, private router: Router) {
+    if (this.userString) {
+      const user: IUsers = JSON.parse(this.userString);
+      this.userStr = user.name;
+    }
+  }
 
   ngOnInit(): void {
     this.service.counterCart$.subscribe((res) => (this.counterCart = res));
     this.getProducts();
+  }
+  logOut() {
+      localStorage.removeItem('user');
+      this.router.navigate([''])
+  }
+  goToMenager() {
+    if (this.userString) {
+      const user: IUsers = JSON.parse(this.userString);
+      this.userStr = user.name;
+      this.router.navigate(['/menager'], {
+        queryParams: { hierarchy: user.hierarchy, password: user.password },
+      });
+    }
   }
   cartActive() {
     if (!this.active) {

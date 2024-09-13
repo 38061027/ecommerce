@@ -1,31 +1,48 @@
-.contentLogin{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    height: 100dvh;
-    gap: 50px;
-    justify-content: center;
-    align-items: center;
+.contentLogin {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100dvh;
+  gap: 50px;
+  justify-content: center;
+  align-items: center;
+  position: relative;
 }
 
-.formLogin{
-    display: flex;
-    flex-direction: column;
-    width: 25%;
+.formLogin {
+  display: flex;
+  flex-direction: column;
+  width: 25%;
 }
-.contentForm{
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+.contentForm {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
-.btnSignUp{
-    border: transparent;
-    background-color: blue;
-    padding: 10px;
-    color: white;
-    margin-top: 10px;
-    border-radius: 10px;
+.btnSignUp {
+  border: transparent;
+  background-color: blue;
+  padding: 10px;
+  color: white;
+  margin-top: 10px;
+  border-radius: 10px;
+}
+
+.msgError {
+  position: absolute;
+  top: 30px;
+}
+
+.registerBtn {
+  display: flex;
+  align-items: center;
+  width: 25%;
+  flex-direction: column;
+  margin-top: 15px;
+}
+.registerBtn button {
+  width: 200px;
 }

@@ -2,8 +2,14 @@
   <nav class="nav">
     <h1 class="title">Ecommerce</h1>
     <div class="search">
-      <input id="typeahead-basic" type="text" class="form-control" placeholder="Pesquisar..." [(ngModel)]="model" [ngbTypeahead]="search" />
-      
+      <input
+        id="typeahead-basic"
+        type="text"
+        class="form-control"
+        placeholder="Pesquisar..."
+        [(ngModel)]="model"
+        [ngbTypeahead]="search"
+      />
     </div>
     <span
       class="material-symbols-outlined"
@@ -12,15 +18,28 @@
     >
       shopping_cart <a class="counter">{{ counterCart }}</a></span
     >
-    <div>
-      <button routerLink="menager">
-        Área Fun
-      </button>
+    <div class="contentLoginUser">
+      <span
+        (click)="goToMenager()"
+        class="material-symbols-outlined"
+        id="contentIcon"
+      >
+        <a class="userIcon">account_circle</a>
+        <a class="userName">{{ userStr }}</a>
+      </span>
+      <span
+        class="material-symbols-outlined"
+        (click)="logOut()"
+        title="Fazer log out"
+        id="logOut"
+      >
+        logout
+      </span>
     </div>
   </nav>
 
   <div *ngIf="active" class="activeCart">
-      <app-cart></app-cart>
+    <app-cart></app-cart>
   </div>
 
   <div class="containerProducts">

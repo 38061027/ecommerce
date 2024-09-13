@@ -8,10 +8,25 @@
       </mat-form-field>
       <mat-form-field class="example-full-width">
         <mat-label>Digite sua senha</mat-label>
-        <input matInput type="password" formControlName="password" />
+        <input #inputPass matInput type="password" formControlName="password" maxlength="6"/>
       </mat-form-field>
-      <button mat-flat-button type="submit" (click)="validateLogin()">Fazer Login</button>
+      <p (click)="togglePass()"><mat-checkbox>Mostrar senha</mat-checkbox></p>
+      <button mat-flat-button type="submit" (click)="validateLogin()">
+        Fazer Login
+      </button>
     </form>
-    <button class="btnSignUp" routerLink="formRegister">Criar conta</button>
+    <div class="registerBtn">
+     <h4>OU</h4>
+      <button class="btnSignUp" routerLink="formRegister">Criar conta</button>
+    </div>
+  </div>
+  <div *ngIf="msgError" class="msgError">
+    <div *ngFor="let alert of alerts" >
+      <ngb-alert [type]="alert.type" (closed)="close(alert)">{{
+        alert.message
+      }}</ngb-alert>
+      <!--
+    <button type="button" class="btn btn-primary" (click)="reset()">Reset</button> -->
+    </div>
   </div>
 </div>
