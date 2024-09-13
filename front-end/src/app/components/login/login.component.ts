@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { IUsers } from 'src/app/core/interface/interface.';
 import { SharedService } from 'src/app/service/shared.service';
 
 @Component({
@@ -18,8 +19,6 @@ export class LoginComponent implements OnInit {
   ) {
     this.login = fb.group({
       name: ['', Validators.minLength(4)],
-      hierarchy: ['', Validators.minLength(4)],
-      email: ['', Validators.minLength(5)],
       password: ['', Validators.minLength(6)],
     });
   }
@@ -32,12 +31,25 @@ export class LoginComponent implements OnInit {
     this.service.getStateForm(form);
   }
 
+  validateLogin() {
+    this.service.getUser().subscribe((user: IUsers[]) => {
+      if (this.login.valid) {
+        const logUser = this.login.value;
+        const password = logUser.password;
+        const name = logUser.name;
+        user.forEach((e) => {
+          if (e.password == password && e.name == name) {
+            this.router.navigate(['home']);
+          }
+        });
+      }
+    });
+  }
+
   onSubmit() {
     if (this.login.valid) {
       const user = this.login.value;
-      this.service.sendUser(user).subscribe();
       this.getStateForm(user);
-      this.router.navigate(['home']);
     }
   }
 }
