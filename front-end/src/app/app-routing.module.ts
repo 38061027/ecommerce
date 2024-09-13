@@ -7,6 +7,7 @@ import { CartComponent } from './components/cart/cart.component';
 import { MenagerComponent } from './components/menager/menager.component';
 import { CanActiveGuard } from './core/guards/can-active.guard';
 import { LoginComponent } from './components/login/login.component';
+import { FormRegisterComponent } from './core/forms/form-register/form-register.component';
 
 const routes: Routes = [
   {path:"", component: LoginComponent},
@@ -14,7 +15,8 @@ const routes: Routes = [
   {path:"form", component: FormComponent},
   {path:"details/:id", component: DetailsComponent},
   {path:"cart", component: CartComponent},
-  {path: "menager", component: MenagerComponent, canActivate:[CanActiveGuard]}
+  {path: "menager", component: MenagerComponent, canActivate:[CanActiveGuard]},
+  {path: "formRegister", component: FormRegisterComponent},
 ];
 
 @NgModule({
