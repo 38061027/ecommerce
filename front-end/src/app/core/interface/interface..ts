@@ -6,3 +6,12 @@ export interface IProducts{
     price:number,
     status:number
 }
+
+
+export interface IUsers{
+    id:number,
+    name:string,
+    hierarchy:string,
+    email:string,
+    password:string
+}
