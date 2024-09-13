@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, OnInit } from '@angular/core';
 import { BehaviorSubject, Observable, switchMap, tap } from 'rxjs';
-import { IProducts } from '../core/interface/interface.';
+import { IProducts, IUsers } from '../core/interface/interface.';
 
 @Injectable({
   providedIn: 'root',
@@ -54,7 +54,11 @@ export class SharedService {
 
   //Req do users
 
-  sendUser(user: any): Observable<any> {
-    return this.http.post<any>(this.apiUrlUser,user);
+  registerUser(user: IUsers): Observable<IUsers> {
+    return this.http.post<IUsers>(this.apiUrlUser, user);
+  }
+
+  getUser(): Observable<IUsers[]> {
+    return this.http.get<IUsers[]>(this.apiUrlUser);
   }
 }
