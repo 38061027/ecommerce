@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { IProducts } from 'src/app/core/interface/interface.';
-import { SharedService } from 'src/app/service/shared.service';
+import { ProductsService } from 'src/app/services/products/products.service';
+
 
 @Component({
   selector: 'app-form',
@@ -12,22 +13,23 @@ export class FormComponent {
 
   productRegister:FormGroup;
 
-    constructor(private service:SharedService, private fb: FormBuilder){
-      this.productRegister = this.fb.group({
-        name:['',Validators.required],
-        quantity:['',Validators.required],
-        description:['',Validators.required],
-        price:['',Validators.required],
-        status:['',Validators.required]
-      })
+    constructor(private productsService:ProductsService, private fb: FormBuilder){
+      this.productRegister = fb.group({
+        name: ['', Validators.maxLength(20)],
+        quantity: ['', Validators.min(1)],
+        description: ['', Validators.maxLength(50)],
+        price: ['', Validators.required],
+        status: ['', Validators.min(1)],
+      });
     }
 
     sendProduct(){
       if(this.productRegister.valid){
         const product = this.productRegister.value;
         console.log(product)
-        this.service.sendProducts(product).subscribe()
+        this.productsService.sendProducts(product).subscribe()
       }
     }
+    
 
 }

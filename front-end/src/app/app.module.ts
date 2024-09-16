@@ -16,6 +16,8 @@ import { BootstrapModule } from './ng-bootstrap/bootstrap/bootstrap.module';
 import { MenagerComponent } from './components/menager/menager.component';
 import { LoginComponent } from './components/login/login.component';
 import { FormRegisterComponent } from './core/forms/form-register/form-register.component';
+import { EditUserComponent } from './core/forms/edit-user/edit-user.component';
+
 
 @NgModule({
   declarations: [
@@ -26,7 +28,9 @@ import { FormRegisterComponent } from './core/forms/form-register/form-register.
     FormComponent,
     MenagerComponent,
     LoginComponent,
-    FormRegisterComponent
+    FormRegisterComponent,
+    EditUserComponent,
+
   ],
   imports: [
     BrowserModule,

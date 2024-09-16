@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { IProducts } from 'src/app/core/interface/interface.';
-import { SharedService } from 'src/app/service/shared.service';
+import { ProductsService } from 'src/app/services/products/products.service';
+
 
 @Component({
   selector: 'app-details',
@@ -11,12 +12,12 @@ import { SharedService } from 'src/app/service/shared.service';
 export class DetailsComponent implements OnInit{
 id!:number | null;
 product!:IProducts | undefined;
-constructor(private activatedRoute: ActivatedRoute,private service: SharedService){}
+constructor(private activatedRoute: ActivatedRoute,private productsService: ProductsService){}
 
 ngOnInit(): void {
   this.id = Number(this.activatedRoute.snapshot.paramMap.get("id"));
   if(this.id){
-    this.service.getProducts().subscribe((product:IProducts[])=>{
+    this.productsService.getProducts().subscribe((product:IProducts[])=>{
       const p = product.find(p=>p.id == this.id)
       this.product = p
     })

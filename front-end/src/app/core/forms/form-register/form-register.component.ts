@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { SharedService } from 'src/app/service/shared.service';
 import { IUsers } from '../../interface/interface.';
+import { UsersService } from 'src/app/services/users/users.service';
 
 @Component({
   selector: 'app-form-register',
@@ -20,7 +20,7 @@ export class FormRegisterComponent {
   ];
   constructor(
     private fb: FormBuilder,
-    private service: SharedService,
+    private usersService: UsersService,
     private router: Router
   ) {
     this.registerUser = fb.group({
@@ -39,7 +39,7 @@ export class FormRegisterComponent {
   onRegister() {
     if (this.registerUser.valid) {
       const newUser = this.registerUser.value;
-      this.service.registerUser(newUser).subscribe();
+      this.usersService.registerUser(newUser).subscribe();
       localStorage.setItem('user', JSON.stringify(newUser))
       this.router.navigate(['home']);
     }

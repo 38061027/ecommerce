@@ -1,0 +1,19 @@
+<div class="contentFormEditUser">
+  <h1>Editar o usuário</h1>
+  <form class="formEditUser" [formGroup]="editUser" (ngSubmit)="editRegister()">
+    <mat-form-field class="example-full-width">
+      <mat-label>Edite o nome</mat-label>
+      <input type="text" matInput formControlName="name" required />
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Edite o cargo</mat-label>
+      <mat-select formControlName="hierarchy" required>
+        <mat-option>--</mat-option>
+        <mat-option *ngFor="let i of c" [value]="i.hierarchy">{{
+          i.hierarchy
+        }}</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <button type="submit" class="btnEdit">Editar usuário</button>
+  </form>
+</div>

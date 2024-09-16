@@ -3,6 +3,8 @@
     justify-content: center;
     align-items:center;
     height: 600px;
+    flex-direction: column;
+    gap: 50px;
 }
 .formContent{
     display: flex;

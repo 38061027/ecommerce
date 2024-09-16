@@ -1,0 +1,16 @@
+.contentFormEditUser{
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+}
+.formEditUser{
+    display: flex;
+    flex-direction: column;
+}
+
+.btnEdit{
+    border: transparent;
+    border-radius: 10px;
+    background-color: blue;
+    color: white;
+}

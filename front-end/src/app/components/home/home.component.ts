@@ -14,7 +14,9 @@ import {
   OperatorFunction,
 } from 'rxjs';
 import { IProducts, IUsers } from 'src/app/core/interface/interface.';
-import { SharedService } from 'src/app/service/shared.service';
+import { CartService } from 'src/app/services/cart/cart.service';
+import { ProductsService } from 'src/app/services/products/products.service';
+
 
 @Component({
   selector: 'app-home',
@@ -31,7 +33,11 @@ export class HomeComponent implements OnInit {
   userString = localStorage.getItem('user');
   userStr: string = '';
 
-  constructor(private service: SharedService, private router: Router) {
+  constructor(
+    private cartService: CartService,
+    private productsService: ProductsService,
+    private router: Router
+  ) {
     if (this.userString) {
       const user: IUsers = JSON.parse(this.userString);
       this.userStr = user.name;
@@ -39,12 +45,12 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.service.counterCart$.subscribe((res) => (this.counterCart = res));
+    this.cartService.counterCart$.subscribe((res) => (this.counterCart = res));
     this.getProducts();
   }
   logOut() {
-      localStorage.removeItem('user');
-      this.router.navigate([''])
+    localStorage.removeItem('user');
+    this.router.navigate(['']);
   }
   goToMenager() {
     if (this.userString) {
@@ -80,10 +86,12 @@ export class HomeComponent implements OnInit {
       )
     );
   getProducts() {
-    return this.service.getProducts().subscribe((res) => (this.products = res));
+    return this.productsService
+      .getProducts()
+      .subscribe((res) => (this.products = res));
   }
   sendToCart(product: IProducts) {
-    this.service.getCart().subscribe((res: IProducts[]) => {
+    this.cartService.getCart().subscribe((res: IProducts[]) => {
       const existing = res.some((el) => el.id === product.id);
 
       if (existing) {
@@ -93,7 +101,7 @@ export class HomeComponent implements OnInit {
         }, 2500);
       } else {
         product.quantity = 1;
-        this.service.sendToCart(product).subscribe((res: IProducts) => {
+        this.cartService.sendToCart(product).subscribe((res: IProducts) => {
           this.counterCart++;
           this.insertToCart = true;
           setTimeout(() => {

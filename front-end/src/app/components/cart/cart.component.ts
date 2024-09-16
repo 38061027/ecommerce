@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { IProducts } from 'src/app/core/interface/interface.';
-import { SharedService } from 'src/app/service/shared.service';
+import { CartService } from 'src/app/services/cart/cart.service';
+
 
 @Component({
   selector: 'app-cart',
@@ -10,14 +11,14 @@ import { SharedService } from 'src/app/service/shared.service';
 export class CartComponent implements OnInit {
   cart!: IProducts[];
   totalValue:number = 0;
-  constructor(private service: SharedService) {}
+  constructor(private cartService: CartService) {}
 
   ngOnInit(): void {
     this.getCart();
   }
 
   getCart() {
-    this.service.getCart().subscribe((res: IProducts[]) => {
+    this.cartService.getCart().subscribe((res: IProducts[]) => {
       this.cart = res,
       this.totalValue = res.reduce((a,b)=>a+b.price,0)
     });
@@ -25,15 +26,15 @@ export class CartComponent implements OnInit {
 
   incrementQuantity(item: IProducts) {
     item.quantity++;
-    this.service.updateQuantity(item.id, item.quantity).subscribe();
+    this.cartService.updateQuantity(item.id, item.quantity).subscribe();
   }
   decremetQuantity(item: IProducts) {
     if (item.quantity > 1) {
       item.quantity--;
-      this.service.updateQuantity(item.id, item.quantity).subscribe();
+      this.cartService.updateQuantity(item.id, item.quantity).subscribe();
     }
   }
   deleteCart(id: number) {
-    this.service.deleteCart(id).subscribe(() => this.getCart());
+    this.cartService.deleteCart(id).subscribe(() => this.getCart());
   }
 }

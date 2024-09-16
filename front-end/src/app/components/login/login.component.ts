@@ -8,7 +8,8 @@ import {
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { IUsers } from 'src/app/core/interface/interface.';
-import { SharedService } from 'src/app/service/shared.service';
+import { FormService } from 'src/app/services/form/form.service';
+import { UsersService } from 'src/app/services/users/users.service';
 interface Alert {
   type: string;
   message: string;
@@ -35,7 +36,8 @@ export class LoginComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    private service: SharedService,
+    private userService: UsersService,
+    private formService: FormService,
     private router: Router
   ) {
     this.login = fb.group({
@@ -69,11 +71,11 @@ export class LoginComponent implements OnInit {
   }
 
   getStateForm(form: any) {
-    this.service.getStateForm(form);
+    this.formService.getStateForm(form);
   }
 
   validateLogin() {
-    this.service.getUser().subscribe((user: IUsers[]) => {
+    this.userService.getUser().subscribe((user: IUsers[]) => {
       if (this.login.valid) {
         const logUser = this.login.value;
         const password = logUser.password;

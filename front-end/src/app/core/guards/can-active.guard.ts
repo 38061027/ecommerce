@@ -1,7 +1,5 @@
 import { Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot, UrlTree } from '@angular/router';
-import { SharedService } from '../../service/shared.service';
-import { first } from 'rxjs/operators';
+import { ActivatedRouteSnapshot, CanActivate, RouterStateSnapshot, UrlTree } from '@angular/router';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -9,7 +7,7 @@ import { Observable } from 'rxjs';
 })
 export class CanActiveGuard implements CanActivate {
 
-  constructor(private service: SharedService, private router: Router) {}
+  constructor() {}
   canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot

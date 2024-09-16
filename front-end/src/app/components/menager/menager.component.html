@@ -1,1 +1,49 @@
-<p>menager works!</p>
+<div class="menagerContainer">
+    <ngb-alert [dismissible]="false" *ngIf="hasError">
+        <strong>Erro!</strong> Você não pode se auto deletar!
+    </ngb-alert>
+  <div class="nav">
+    <button class="btnAddProducts" (click)="goToForm()">
+      Adicionar novos produtos
+    </button>
+    <button
+      type="button"
+      class="btn btn-outline-primary"
+      (click)="collapse.toggle()"
+      [attr.aria-expanded]="!isCollapsed"
+      aria-controls="collapseExample"
+    >
+      Ver tabela de usuários
+    </button>
+  </div>
+  <div #collapse="ngbCollapse" [(ngbCollapse)]="isCollapsed">
+    <div class="card">
+      <div class="card-body"></div>
+    </div>
+
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th scope="col">Id</th>
+          <th scope="col">Name</th>
+          <th scope="col">Hierarchy</th>
+          <th scope="col">Ações</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let user of users; let i = index">
+          <th scope="row">{{ i + 1 }}</th>
+          <td>
+            {{ user.name }}
+          </td>
+          <td>{{ user.hierarchy }}</td>
+          <td class="material-symbols-outlined" id="delete"(click)="deleteUser(user.id)">delete</td>
+          <td class="material-symbols-outlined" id="edit" (click)="openDialog(user.id)">edit</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+
+
