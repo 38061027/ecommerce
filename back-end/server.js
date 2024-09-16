@@ -26,6 +26,9 @@ connection.connect((err) => {
   console.log("Conectado ao banco de dados MySQL");
 });
 
+
+// Products
+
 app.get("/api/data", (req, res) => {
   const query = "SELECT * FROM products";
   connection.query(query, (err, results) => {
@@ -194,6 +197,46 @@ app.post("/api/user", (req, res) => {
     }
   );
 });
+
+
+app.patch("/api/user/:id", (req, res) => {
+  const id = req.params.id;
+  const { name , hierarchy } = req.body;
+
+  if (name === undefined || hierarchy === undefined) {
+    return res.status(400).json({ error: "Algo deu errado" });
+  }
+
+  const query = "UPDATE user SET name = ? , hierarchy = ? WHERE id = ?";
+  connection.query(query, [name, hierarchy, id], (err, results) => {
+    if (err) {
+      return res.status(500).send(err);
+    }
+
+    if (results.affectedRows === 0) {
+      return res.status(404).json({ error: "Product not found" });
+    }
+
+    res.status(200).json({ name, hierarchy, id });
+  });
+});
+
+
+app.delete("/api/user/:id", (req, res) => {
+  const id = req.params.id;
+  connection.query(
+    "DELETE FROM user WHERE id = ?",
+    [id],
+    (err, results) => {
+      if (err) {
+        res.status(500).send(err);
+      } else {
+        res.status(200).send({});
+      }
+    }
+  );
+});
+
 
 app.listen(port, () => {
   console.log(`Seu servidor está rodando na porta ${port}`);
