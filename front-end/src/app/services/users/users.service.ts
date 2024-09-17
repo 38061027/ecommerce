@@ -7,7 +7,7 @@ import { IUsers } from 'src/app/core/interface/interface.';
   providedIn: 'root'
 })
 export class UsersService {
-  private apiUrlUser: string = 'http://localhost:3000/api/user';
+  private apiUrlUser: string = 'http://localhost:3000/api/users';
 
   constructor(private http:HttpClient) { }
 

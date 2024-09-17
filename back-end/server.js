@@ -166,8 +166,8 @@ app.delete("/api/cart/:id", (req, res) => {
 
 // User API
 
-app.get("/api/user", (req, res) => {
-  const query = "SELECT * FROM user";
+app.get("/api/users", (req, res) => {
+  const query = "SELECT * FROM users";
   connection.query(query, (err, results) => {
     if (err) {
       res.status(500).send(err);
@@ -178,9 +178,9 @@ app.get("/api/user", (req, res) => {
 });
 
 
-app.post("/api/user", (req, res) => {
+app.post("/api/users", (req, res) => {
   const query =
-    "INSERT INTO user (name, hierarchy, email, password) VALUES (?, ?, ?, ?)";
+    "INSERT INTO users (name, hierarchy, email, password) VALUES (?, ?, ?, ?)";
   const {name, hierarchy, email, password } = req.body;
 
   connection.query(
@@ -199,7 +199,7 @@ app.post("/api/user", (req, res) => {
 });
 
 
-app.patch("/api/user/:id", (req, res) => {
+app.patch("/api/users/:id", (req, res) => {
   const id = req.params.id;
   const { name , hierarchy } = req.body;
 
@@ -207,7 +207,7 @@ app.patch("/api/user/:id", (req, res) => {
     return res.status(400).json({ error: "Algo deu errado" });
   }
 
-  const query = "UPDATE user SET name = ? , hierarchy = ? WHERE id = ?";
+  const query = "UPDATE users SET name = ? , hierarchy = ? WHERE id = ?";
   connection.query(query, [name, hierarchy, id], (err, results) => {
     if (err) {
       return res.status(500).send(err);
@@ -222,10 +222,10 @@ app.patch("/api/user/:id", (req, res) => {
 });
 
 
-app.delete("/api/user/:id", (req, res) => {
+app.delete("/api/users/:id", (req, res) => {
   const id = req.params.id;
   connection.query(
-    "DELETE FROM user WHERE id = ?",
+    "DELETE FROM users WHERE id = ?",
     [id],
     (err, results) => {
       if (err) {

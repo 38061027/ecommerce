@@ -17,7 +17,7 @@ export class FormComponent {
       this.productRegister = fb.group({
         name: ['', Validators.maxLength(20)],
         quantity: ['', Validators.min(1)],
-        description: ['', Validators.maxLength(50)],
+        description: ['', Validators.maxLength(100)],
         price: ['', Validators.required],
         status: ['', Validators.min(1)],
       });
