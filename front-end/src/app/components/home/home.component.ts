@@ -11,7 +11,9 @@ import {
   distinctUntilChanged,
   map,
   Observable,
+  of,
   OperatorFunction,
+  switchMap,
 } from 'rxjs';
 import { IProducts, IUsers } from 'src/app/core/interface/interface.';
 import { CartService } from 'src/app/services/cart/cart.service';
@@ -68,23 +70,21 @@ export class HomeComponent implements OnInit {
       this.active = false;
     }
   }
-  search: OperatorFunction<string, readonly string[]> = (
-    text$: Observable<string>
-  ) =>
+  search: OperatorFunction<string, readonly string[]> = (text$: Observable<string>) =>
     text$.pipe(
-      debounceTime(500),
-      distinctUntilChanged(),
-      map((term) =>
+      debounceTime(800), 
+      distinctUntilChanged(), 
+      switchMap(term =>
         term.length < 2
-          ? []
-          : this.products
-              .filter(
-                (v) => v.name.toLowerCase().indexOf(term.toLowerCase()) > -1
+          ? of([]) 
+          : this.productsService.searchProduct(term).pipe(
+              map((products) => 
+                products.slice(0, 3).map(product => product.name)
               )
-              .slice(0, 10)
-              .map((product) => product.name)
+            )
       )
     );
+  
   getProducts() {
     return this.productsService
       .getProducts()
