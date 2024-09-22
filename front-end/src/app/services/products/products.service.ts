@@ -8,7 +8,8 @@ import { IProducts } from 'src/app/core/interface/interface.';
 })
 export class ProductsService {
 
-  private apiUrlData: string = 'http://localhost:3000/api/data';
+  // private apiUrlData: string = 'http://localhost:3000/api/data';
+  private apiUrlData: string = 'http://localhost:3000/products';
 
   constructor(private http: HttpClient) { }
 

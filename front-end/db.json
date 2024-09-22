@@ -37,5 +37,8 @@
       "price": 4.2,
       "quantity": 5
     }
+  ],
+  "users":[
+    {"id": "1", "name":"jose", "hierarchy":"admin","email": "jose23@gmail.com", "password": "380610"}
   ]
 }

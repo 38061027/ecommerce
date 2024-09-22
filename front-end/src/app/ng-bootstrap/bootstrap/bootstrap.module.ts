@@ -13,6 +13,9 @@ import { NgbCollapseModule } from '@ng-bootstrap/ng-bootstrap';
     NgbHighlight,
     NgbCollapseModule
   ],
-  exports: [NgbTypeaheadModule]
+  exports: [ NgbTypeaheadModule,
+    NgbAlertModule,
+    NgbHighlight,
+    NgbCollapseModule]
 })
 export class BootstrapModule { }

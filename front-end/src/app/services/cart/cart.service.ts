@@ -7,7 +7,8 @@ import { IProducts } from 'src/app/core/interface/interface.';
   providedIn: 'root'
 })
 export class CartService {
-  private apiUrlCart: string = 'http://localhost:3000/api/cart';
+  // private apiUrlCart: string = 'http://localhost:3000/api/cart';
+  private apiUrlCart: string = 'http://localhost:3000/cart';
     private counterCart = new BehaviorSubject<number>(0);
   counterCart$ = this.counterCart.asObservable();
 
