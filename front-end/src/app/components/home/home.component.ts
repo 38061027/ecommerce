@@ -5,6 +5,7 @@ import {
   Output,
   ViewChild,
 } from '@angular/core';
+import { FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
 import {
   debounceTime,
@@ -18,7 +19,6 @@ import {
 import { IProducts, IUsers } from 'src/app/core/interface/interface.';
 import { CartService } from 'src/app/services/cart/cart.service';
 import { ProductsService } from 'src/app/services/products/products.service';
-
 
 @Component({
   selector: 'app-home',
@@ -34,6 +34,8 @@ export class HomeComponent implements OnInit {
   model: any;
   userString = localStorage.getItem('user');
   userStr: string = '';
+  productSelect!: IProducts;
+  inputSearch = new FormControl('');
 
   constructor(
     private cartService: CartService,
@@ -49,6 +51,13 @@ export class HomeComponent implements OnInit {
   ngOnInit(): void {
     this.cartService.counterCart$.subscribe((res) => (this.counterCart = res));
     this.getProducts();
+    this.inputSearch.valueChanges.pipe(debounceTime(900)).subscribe((resp) => {
+      if (resp) {
+        this.productsService.searchProduct(resp).subscribe((res) => {
+          this.products = res;
+        });
+      }
+    });
   }
   logOut() {
     localStorage.removeItem('user');
@@ -70,21 +79,25 @@ export class HomeComponent implements OnInit {
       this.active = false;
     }
   }
-  search: OperatorFunction<string, readonly string[]> = (text$: Observable<string>) =>
+  search: OperatorFunction<string, readonly string[]> = (
+    text$: Observable<string>
+  ) =>
     text$.pipe(
-      debounceTime(800), 
-      distinctUntilChanged(), 
-      switchMap(term =>
+      debounceTime(800),
+      distinctUntilChanged(),
+      switchMap((term) =>
         term.length < 2
-          ? of([]) 
-          : this.productsService.searchProduct(term).pipe(
-              map((products) => 
-                products.slice(0, 3).map(product => product.name)
+          ? of([])
+          : this.productsService
+              .searchProduct(term)
+              .pipe(
+                map((products) =>
+                  products.slice(0, 3).map((product) => product.name)
+                )
               )
-            )
       )
     );
-  
+
   getProducts() {
     return this.productsService
       .getProducts()

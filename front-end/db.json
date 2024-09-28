@@ -38,7 +38,20 @@
       "quantity": 5
     }
   ],
-  "users":[
-    {"id": "1", "name":"jose", "hierarchy":"admin","email": "jose23@gmail.com", "password": "380610"}
+  "users": [
+    {
+      "id": "1",
+      "name": "jose",
+      "hierarchy": "admin",
+      "email": "jose23@gmail.com",
+      "password": "380610"
+    },
+    {
+      "id": "293d",
+      "name": "pedro",
+      "hierarchy": "cliente",
+      "email": "pedsf@gmail.com",
+      "password": "232323"
+    }
   ]
 }
