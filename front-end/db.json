@@ -1,20 +1,6 @@
 {
   "products": [
     {
-      "id": "1",
-      "name": "Iphone 15",
-      "description": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the",
-      "price": 4.2,
-      "quantity": 2
-    },
-    {
-      "id": "2",
-      "name": "Smart tv ",
-      "description": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the",
-      "price": 3.2,
-      "quantity": 2
-    },
-    {
       "id": "3",
       "name": "Notebook",
       "description": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the",
@@ -25,17 +11,24 @@
       "id": "4",
       "name": "Mouse ",
       "description": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the",
-      "price": 4.3433,
+      "price": 4.343,
       "quantity": 2
-    }
-  ],
-  "cart": [
+    },
     {
-      "id": "1",
-      "name": "Iphone 15",
-      "description": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the",
-      "price": 4.2,
-      "quantity": 5
+      "id": "b0c6",
+      "name": "Ventilador",
+      "quantity": 13,
+      "description": "dasdsadasdqwdqdqw",
+      "price": 79.55,
+      "status": 1
+    },
+    {
+      "id": "a2fa",
+      "name": "Teclado ",
+      "quantity": 23,
+      "description": "ewfergegsdffsdfdsfsdfsdfsdf",
+      "price": 257,
+      "status": 1
     }
   ],
   "users": [
@@ -44,14 +37,20 @@
       "name": "jose",
       "hierarchy": "admin",
       "email": "jose23@gmail.com",
-      "password": "380610"
+      "password": "380610",
+      "cart":[
+        {"productName":"Ventilador", "productId":"1", "quantity": 2, "totalValue": 567}
+      ]
     },
     {
       "id": "293d",
       "name": "pedro",
       "hierarchy": "cliente",
       "email": "pedsf@gmail.com",
-      "password": "232323"
+      "password": "232323",
+      "cart":[
+        {"productName":"Ventilador", "productId":"1", "quantity": 6, "totalValue": 567}
+      ]
     }
   ]
 }
