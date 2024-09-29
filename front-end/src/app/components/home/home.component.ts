@@ -103,25 +103,25 @@ export class HomeComponent implements OnInit {
       .getProducts()
       .subscribe((res) => (this.products = res));
   }
-  sendToCart(product: IProducts) {
-    this.cartService.getCart().subscribe((res: IProducts[]) => {
-      const existing = res.some((el) => el.id === product.id);
+  // sendToCart(product: IProducts) {
+  //   this.cartService.getCart().subscribe((res: IProducts[]) => {
+  //     const existing = res.some((el) => el.id === product.id);
 
-      if (existing) {
-        this.existingMsg = true;
-        setTimeout(() => {
-          this.existingMsg = false;
-        }, 2500);
-      } else {
-        product.quantity = 1;
-        this.cartService.sendToCart(product).subscribe((res: IProducts) => {
-          this.counterCart++;
-          this.insertToCart = true;
-          setTimeout(() => {
-            this.insertToCart = false;
-          }, 2500);
-        });
-      }
-    });
-  }
+  //     if (existing) {
+  //       this.existingMsg = true;
+  //       setTimeout(() => {
+  //         this.existingMsg = false;
+  //       }, 2500);
+  //     } else {
+  //       product.quantity = 1;
+  //       this.cartService.sendToCart(product).subscribe((res: IProducts) => {
+  //         this.counterCart++;
+  //         this.insertToCart = true;
+  //         setTimeout(() => {
+  //           this.insertToCart = false;
+  //         }, 2500);
+  //       });
+  //     }
+  //   });
+  // }
 }

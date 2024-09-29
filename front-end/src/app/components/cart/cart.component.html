@@ -1,17 +1,17 @@
-<!-- <div class="containerCart">
+<div class="containerCart">
   <div *ngFor="let item of cart" class="cart">
-    <h4>{{ item.name }}</h4>
+    <h4>{{ item.productName }}</h4>
     <p>Quantidade: {{ item.quantity }}</p>
     <div class="btnQtd">
       <button (click)="incrementQuantity(item)">+</button>
       <button (click)="decremetQuantity(item)">-</button>
-      <span title="Remover produto do carrinho" class="material-symbols-outlined" id="btnDeleteCart" (click)="deleteCart(item.id)">
+      <span title="Remover produto do carrinho" class="material-symbols-outlined" id="btnDeleteCart" (click)="deleteCart(item.productId)">
         delete
         </span>
     </div>
-    <h3>Total: R$ {{ item.quantity * item.price }}</h3>
+    <h3>Total: R$ {{ item.totalValue }}</h3>
   </div>
   <div>
     <h2>Valor total:  R$ {{totalValue.toFixed(3)}}</h2>
   </div>
-</div> -->
+</div>
