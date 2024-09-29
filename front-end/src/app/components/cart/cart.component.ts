@@ -14,7 +14,14 @@ export class CartComponent implements OnInit {
   constructor(private cartService: CartService) {}
 
   ngOnInit(): void {
-    this.cartService.cart$.subscribe((res) => (this.cart = res));
+    this.cartService.cart$.subscribe((res: Icart[]) => {
+      this.cart = res;
+      this.totalValue = this.totalCartValue(res);
+    });
+  }
+
+  totalCartValue(values: Icart[]) {
+    return values.reduce((a: any, b: any) => a + b.totalValue, 0);
   }
 
   incrementQuantity(item: Icart) {
@@ -22,6 +29,9 @@ export class CartComponent implements OnInit {
     this.totalValue += item.quantity * this.totalValue;
     // this.cartService.updateQuantity(item.id, item.quantity).subscribe();
   }
+
+  // TENHO QUE PEGAR O PRODUCT ID E FILTRAR E ATULIZAR O PRODUTO ESPECIFICO
+
   decremetQuantity(item: Icart) {
     if (item.quantity > 1) {
       item.quantity--;
