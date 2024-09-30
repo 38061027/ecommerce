@@ -28,6 +28,7 @@ export class FormRegisterComponent {
       hierarchy: ['', Validators.minLength(4)],
       email: ['', Validators.minLength(5)],
       password: ['', Validators.minLength(6)],
+      cart: this.fb.array([this.createCartItem()])
     });
 
     if(this.userString){
@@ -36,9 +37,19 @@ export class FormRegisterComponent {
     }
   }
 
+  createCartItem(): FormGroup {
+    return this.fb.group({
+      productName: [''],
+      productId: [''],
+      quantity: [0],
+      totalValue: [0]
+    });
+  }
+
   onRegister() {
     if (this.registerUser.valid) {
       const newUser = this.registerUser.value;
+      console.log(newUser)
       this.usersService.registerUser(newUser).subscribe();
       localStorage.setItem('user', JSON.stringify(newUser))
       this.router.navigate(['home']);
