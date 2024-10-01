@@ -59,6 +59,10 @@ export class HomeComponent implements OnInit {
       }
     });
   }
+
+  sendToCart(cart:any){
+    this.cartService.sendToCart(cart).subscribe()
+  }
   logOut() {
     localStorage.removeItem('user');
     this.router.navigate(['']);

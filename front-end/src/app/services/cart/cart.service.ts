@@ -1,13 +1,13 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import { BehaviorSubject, map, Observable } from 'rxjs';
+import { Injectable, OnInit } from '@angular/core';
+import { BehaviorSubject, map, Observable, switchMap } from 'rxjs';
 import { Icart, IProducts } from 'src/app/core/interface/interface.';
 import { UsersService } from '../users/users.service';
 
 @Injectable({
   providedIn: 'root',
 })
-export class CartService {
+export class CartService{
   // private apiUrlCart: string = 'http://localhost:3000/api/cart';
   private apiUrlCart: string = 'http://localhost:3000/users';
   private counterCart = new BehaviorSubject<number>(0);
@@ -17,6 +17,7 @@ export class CartService {
 
   userString = localStorage.getItem('user');
   actualUserId!: string;
+  actualCart: any
 
   constructor(private http: HttpClient, private usersService: UsersService) {
     if (this.userString) {
@@ -25,7 +26,11 @@ export class CartService {
 
     this.getCart();
     this.cart$.subscribe();
+    this.testCart().subscribe(res => res.map((el:any) => this.actualCart = el.cart))
+
   }
+
+
 
   setCounterCart(counter: number) {
     this.counterCart.next(counter);
@@ -40,9 +45,18 @@ export class CartService {
     });
   }
 
-  // sendToCart(product: IProducts): Observable<IProducts> {
-  //   return this.http.post<IProducts>(this.apiUrlCart, product);
-  // }
+  testCart():Observable<any>{
+    return this.http.get<any>(this.apiUrlCart)
+  }
+
+  sendToCart(product: IProducts): Observable<IProducts> {
+    let updateCart = [...this.actualCart, product]
+    this.http.get<any>(`${this.apiUrlCart}/1`).subscribe(res => console.log(res))
+
+    return this.http.patch<IProducts>(`${this.apiUrlCart}/1`, {cart:updateCart}).pipe(
+      switchMap(() => this.testCart())
+    );;
+  }
   updateQuantity(
     id: string,
     newQuantity: number,
@@ -63,4 +77,4 @@ export class CartService {
   // deleteCart(id: number): Observable<IProducts> {
   //   return this.http.delete<IProducts>(`${this.apiUrlCart}/${id}`);
   // }
-}
+}  
