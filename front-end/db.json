@@ -40,46 +40,10 @@
       "password": "380610",
       "cart": [
         {
-          "productName": "Ventilador",
           "productId": "1",
-          "quantity": 2,
-          "totalValue": 567
-        },
-        {
-          "productName": "Smart Tv",
-          "productId": "2",
-          "quantity": 3,
-          "totalValue": 2000
-        }
-      ]
-    },
-    {
-      "id": "293d",
-      "name": "pedro",
-      "hierarchy": "cliente",
-      "email": "pedsf@gmail.com",
-      "password": "232323",
-      "cart": [
-        {
           "productName": "Ventilador",
-          "productId": "1",
-          "quantity": 6,
+          "quantity": 4,
           "totalValue": 567
-        }
-      ]
-    },
-    {
-      "id": "f7ca",
-      "name": "maria",
-      "hierarchy": "cliente",
-      "email": "marisa@gmail.com",
-      "password": "123456",
-      "cart": [
-        {
-          "productName": "",
-          "productId": "",
-          "quantity": 0,
-          "totalValue": 0
         }
       ]
     }

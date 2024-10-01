@@ -43,11 +43,23 @@ export class CartService {
   // sendToCart(product: IProducts): Observable<IProducts> {
   //   return this.http.post<IProducts>(this.apiUrlCart, product);
   // }
-  updateQuantity(id: number, newQuantity: number): Observable<any> {
+  updateQuantity(
+    id: string,
+    newQuantity: number,
+    item: Icart
+  ): Observable<any> {
     return this.http.patch(`${this.apiUrlCart}/${id}`, {
-      cart: {quantity:newQuantity},
+      cart: [
+        {
+          productId: item.productId,
+          productName: item.productName,
+          quantity: newQuantity,
+          totalValue: item.totalValue,
+        },
+      ],
     });
   }
+
   // deleteCart(id: number): Observable<IProducts> {
   //   return this.http.delete<IProducts>(`${this.apiUrlCart}/${id}`);
   // }

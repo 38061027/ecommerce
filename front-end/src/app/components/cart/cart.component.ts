@@ -27,7 +27,7 @@ export class CartComponent implements OnInit {
   incrementQuantity(item: Icart) {
     item.quantity++;
     this.totalValue += item.quantity * this.totalValue;
-    // this.cartService.updateQuantity(item.id, item.quantity).subscribe();
+    this.cartService.updateQuantity(item.productId, item.quantity, item).subscribe();
   }
 
   // TENHO QUE PEGAR O PRODUCT ID E FILTRAR E ATULIZAR O PRODUTO ESPECIFICO
