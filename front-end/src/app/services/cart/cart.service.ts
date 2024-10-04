@@ -53,7 +53,7 @@ export class CartService {
     let updateCart = [...this.actualCart, product];
 
     return this.http
-      .patch<IProducts>(`${this.apiUrlCart}/1`, { cart: updateCart })
+      .patch<IProducts>(`${this.apiUrlCart}/${this.actualUserId}`, { cart: updateCart })
       .pipe(
         switchMap(() => this.getCart()),
         map((res) => {
