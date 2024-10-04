@@ -7,7 +7,7 @@ import { UsersService } from '../users/users.service';
 @Injectable({
   providedIn: 'root',
 })
-export class CartService{
+export class CartService {
   // private apiUrlCart: string = 'http://localhost:3000/api/cart';
   private apiUrlCart: string = 'http://localhost:3000/users';
   private counterCart = new BehaviorSubject<number>(0);
@@ -17,25 +17,26 @@ export class CartService{
 
   userString = localStorage.getItem('user');
   actualUserId!: string;
-  actualCart: any
+  actualCart: any;
 
   constructor(private http: HttpClient, private usersService: UsersService) {
     if (this.userString) {
       this.actualUserId = JSON.parse(this.userString).id;
     }
 
-    this.getCart();
+    this.getCartByUser();
     this.cart$.subscribe();
-    this.testCart().subscribe(res => res.map((el:any) => this.actualCart = el.cart))
-
+    this.getCart().subscribe((res) =>
+      res.map((el: any) => {
+        this.actualCart = el.cart;
+      })
+    );
   }
-
-
 
   setCounterCart(counter: number) {
     this.counterCart.next(counter);
   }
-  getCart(): void {
+  getCartByUser(): void {
     this.http.get<any>(this.apiUrlCart).subscribe((res) => {
       const user = res.find((u: any) => String(u.id) === this.actualUserId);
       if (user) {
@@ -45,18 +46,28 @@ export class CartService{
     });
   }
 
-  testCart():Observable<any>{
-    return this.http.get<any>(this.apiUrlCart)
+  getCart(): Observable<any> {
+    return this.http.get<any>(this.apiUrlCart);
   }
-
   sendToCart(product: IProducts): Observable<IProducts> {
-    let updateCart = [...this.actualCart, product]
-    this.http.get<any>(`${this.apiUrlCart}/1`).subscribe(res => console.log(res))
+    let updateCart = [...this.actualCart, product];
 
-    return this.http.patch<IProducts>(`${this.apiUrlCart}/1`, {cart:updateCart}).pipe(
-      switchMap(() => this.testCart())
-    );;
+    return this.http
+      .patch<IProducts>(`${this.apiUrlCart}/1`, { cart: updateCart })
+      .pipe(
+        switchMap(() => this.getCart()),
+        map((res) => {
+          const user = res.find((u: any) => String(u.id) === this.actualUserId);
+          if (user) {
+            this.actualCart = user.cart;
+            this.cart.next(this.actualCart);
+            this.counterCart.next(this.actualCart.length);
+          }
+          return product;
+        })
+      );
   }
+
   updateQuantity(
     id: string,
     newQuantity: number,
@@ -77,4 +88,4 @@ export class CartService{
   // deleteCart(id: number): Observable<IProducts> {
   //   return this.http.delete<IProducts>(`${this.apiUrlCart}/${id}`);
   // }
-}  
+}
