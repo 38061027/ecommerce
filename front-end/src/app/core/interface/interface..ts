@@ -1,5 +1,5 @@
 export interface IProducts {
-  id: number;
+  id: string;
   name: string;
   quantity: number;
   description: string;
@@ -13,7 +13,7 @@ export interface Icart {
   totalValue: number;
 }
 export interface IUsers {
-  id: number;
+  id: string;
   name: string;
   hierarchy: string;
   email: string;

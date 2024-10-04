@@ -49,11 +49,11 @@ export class CartService {
   getCart(): Observable<any> {
     return this.http.get<any>(this.apiUrlCart);
   }
-  sendToCart(product: IProducts): Observable<IProducts> {
+  sendToCart(product: Icart): Observable<Icart> {
     let updateCart = [...this.actualCart, product];
 
     return this.http
-      .patch<IProducts>(`${this.apiUrlCart}/${this.actualUserId}`, { cart: updateCart })
+      .patch<Icart>(`${this.apiUrlCart}/${this.actualUserId}`, { cart: updateCart })
       .pipe(
         switchMap(() => this.getCart()),
         map((res) => {

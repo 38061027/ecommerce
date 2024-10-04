@@ -38,8 +38,8 @@ export class MenagerComponent implements OnInit {
   goToForm() {
     this.router.navigate(['form']);
   }
-  deleteUser(id: number) {
-  if(this.userIdLocal !== id){
+  deleteUser(id: string) {
+  if(this.userIdLocal !== Number(id)){
     this.userService.deleteUser(id).subscribe(() => this.getUser());
   }else{
     this.hasError = true
@@ -50,7 +50,7 @@ export class MenagerComponent implements OnInit {
   }
 
 
-  openDialog(id:number): void {
+  openDialog(id:string): void {
     const dialogRef = this.dialog.open(EditUserComponent, {
       data:{userId:id}
     });

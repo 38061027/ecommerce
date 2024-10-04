@@ -10,12 +10,12 @@ import { ProductsService } from 'src/app/services/products/products.service';
   styleUrls: ['./details.component.css']
 })
 export class DetailsComponent implements OnInit{
-id!:number | null;
+id!:string | null;
 product!:IProducts | undefined;
 constructor(private activatedRoute: ActivatedRoute,private productsService: ProductsService){}
 
 ngOnInit(): void {
-  this.id = Number(this.activatedRoute.snapshot.paramMap.get("id"));
+  this.id = this.activatedRoute.snapshot.paramMap.get("id");
   if(this.id){
     this.productsService.getProducts().subscribe((product:IProducts[])=>{
       const p = product.find(p=>p.id == this.id)

@@ -16,7 +16,7 @@ import {
   OperatorFunction,
   switchMap,
 } from 'rxjs';
-import { IProducts, IUsers } from 'src/app/core/interface/interface.';
+import { Icart, IProducts, IUsers } from 'src/app/core/interface/interface.';
 import { CartService } from 'src/app/services/cart/cart.service';
 import { ProductsService } from 'src/app/services/products/products.service';
 
@@ -58,10 +58,18 @@ export class HomeComponent implements OnInit {
         });
       }
     });
+
+    
   }
 
   sendToCart(cart:any){
-    this.cartService.sendToCart(cart).subscribe()
+    const productsToCart:Icart = {
+      productId:cart.id,
+      productName: cart.name,
+      quantity:1,
+      totalValue:0
+    }
+    this.cartService.sendToCart(productsToCart).subscribe()
   }
   logOut() {
     localStorage.removeItem('user');

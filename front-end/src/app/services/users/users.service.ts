@@ -21,11 +21,11 @@ export class UsersService {
     return this.http.get<IUsers[]>(this.apiUrlUser);
   }
 
-  deleteUser(id: number): Observable<IUsers> {
+  deleteUser(id: string): Observable<IUsers> {
     return this.http.delete<IUsers>(`${this.apiUrlUser}/${id}`);
   }
 
-  editUser(id:number, user: IUsers):Observable<IUsers>{
+  editUser(id:string, user: IUsers):Observable<IUsers>{
     return this.http.patch<IUsers>(`${this.apiUrlUser}/${id}`, {name: user.name, hierarchy: user.hierarchy})
   }
 }

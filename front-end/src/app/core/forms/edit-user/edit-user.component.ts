@@ -16,7 +16,7 @@ export interface DialogData {
 })
 export class EditUserComponent implements OnInit {
   editUser: FormGroup;
-  id: number;
+  id: string;
 
   c: any[] = [{ hierarchy: 'admin' }, { hierarchy: 'cliente' }];
 
@@ -30,7 +30,7 @@ export class EditUserComponent implements OnInit {
       name: ['', Validators.required],
       hierarchy: ['', Validators.required],
     });
-    this.id = data.userId;
+    this.id = String(data.userId);
   }
 
   ngOnInit(): void {
