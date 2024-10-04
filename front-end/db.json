@@ -40,22 +40,16 @@
       "password": "380610",
       "cart": [
         {
-          "productId": "1",
+          "productId": "3",
+          "productName": "Notebook",
+          "quantity": 4,
+          "totalValue": 8.888
+        },
+        {
+          "productId": "b0c6",
           "productName": "Ventilador",
-          "quantity": 4,
-          "totalValue": 567
-        },
-        {
-          "productId": "3",
-          "productName": "Notebook",
-          "quantity": 4,
-          "totalValue": 0
-        },
-        {
-          "productId": "3",
-          "productName": "Notebook",
-          "quantity": 4,
-          "totalValue": 0
+          "quantity": 7,
+          "totalValue": 556.85
         }
       ]
     }

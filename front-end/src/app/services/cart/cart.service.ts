@@ -3,6 +3,7 @@ import { Injectable, OnInit } from '@angular/core';
 import { BehaviorSubject, filter, map, Observable, switchMap } from 'rxjs';
 import { Icart, IProducts } from 'src/app/core/interface/interface.';
 import { UsersService } from '../users/users.service';
+import { ProductsService } from '../products/products.service';
 
 @Injectable({
   providedIn: 'root',
@@ -19,11 +20,15 @@ export class CartService {
   actualUserId!: string;
   actualCart: any;
 
-  constructor(private http: HttpClient, private usersService: UsersService) {
+  constructor(
+    private http: HttpClient,
+    private usersService: UsersService,
+    private productsService: ProductsService
+  ) {
     if (this.userString) {
       this.actualUserId = JSON.parse(this.userString).id;
     }
-
+    this.getProducts();
     this.getCartByUser();
     this.cart$.subscribe();
     this.getCart().subscribe((res) =>
@@ -86,31 +91,48 @@ export class CartService {
   //     ],
   //   });
   // }
+
+  getProducts() {
+    this.productsService.getProducts().subscribe((res) => {
+      res.forEach((el) => console.log(el.price));
+    });
+  }
+
   updateQuantity(
     productId: string,
     newQuantity: number,
     item: Icart
   ): Observable<any> {
-    const updatedCart = this.actualCart.map((cartItem: Icart) => {
-      if (cartItem.productId === productId) {
-        return {
-          ...cartItem,
-          quantity: newQuantity,
-        };
-      }
-      return cartItem;
-    });
+    return this.productsService.getProducts().pipe(
+      map((res) => res.find((product) => product.id === productId)),
+      switchMap((product) => {
+        if (!product) {
+          throw new Error('Produto não encontrado');
+        }
 
-    return this.http
-      .patch(`${this.apiUrlCart}/${this.actualUserId}`, {
-        cart: updatedCart,
+        const updatedCart = this.actualCart.map((cartItem: Icart) => {
+          if (cartItem.productId === productId) {
+            return {
+              ...cartItem,
+              quantity: newQuantity,
+              totalValue: newQuantity * product.price,
+            };
+          }
+          return cartItem;
+        });
+
+        return this.http
+          .patch(`${this.apiUrlCart}/${this.actualUserId}`, {
+            cart: updatedCart,
+          })
+          .pipe(
+            map((res) => {
+              this.cart.next(updatedCart);
+              return res;
+            })
+          );
       })
-      .pipe(
-        map((res) => {
-          this.cart.next(updatedCart);
-          return res;
-        })
-      );
+    );
   }
 
   // deleteCart(id: number): Observable<IProducts> {

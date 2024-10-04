@@ -67,7 +67,7 @@ export class HomeComponent implements OnInit {
       productId:cart.id,
       productName: cart.name,
       quantity:1,
-      totalValue:0
+      totalValue:cart.quantity*cart.price
     }
     this.cartService.sendToCart(productsToCart).subscribe()
   }
