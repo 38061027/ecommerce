@@ -62,15 +62,7 @@ export class HomeComponent implements OnInit {
     
   }
 
-  sendToCart(cart:any){
-    const productsToCart:Icart = {
-      productId:cart.id,
-      productName: cart.name,
-      quantity:1,
-      totalValue:cart.quantity*cart.price
-    }
-    this.cartService.sendToCart(productsToCart).subscribe()
-  }
+ 
   logOut() {
     localStorage.removeItem('user');
     this.router.navigate(['']);
@@ -115,25 +107,31 @@ export class HomeComponent implements OnInit {
       .getProducts()
       .subscribe((res) => (this.products = res));
   }
-  // sendToCart(product: IProducts) {
-  //   this.cartService.getCart().subscribe((res: IProducts[]) => {
-  //     const existing = res.some((el) => el.id === product.id);
+  sendToCart(product: IProducts) {
+    const productsToCart:Icart = {
+      productId:product.id,
+      productName: product.name,
+      quantity:1,
+      totalValue:product.quantity*product.price
+    }
+    this.cartService.getCart().subscribe((res: Icart[]) => {
+      const existing = res.some((el) => el.productId === product.id);
 
-  //     if (existing) {
-  //       this.existingMsg = true;
-  //       setTimeout(() => {
-  //         this.existingMsg = false;
-  //       }, 2500);
-  //     } else {
-  //       product.quantity = 1;
-  //       this.cartService.sendToCart(product).subscribe((res: IProducts) => {
-  //         this.counterCart++;
-  //         this.insertToCart = true;
-  //         setTimeout(() => {
-  //           this.insertToCart = false;
-  //         }, 2500);
-  //       });
-  //     }
-  //   });
-  // }
+      if (existing) {
+        this.existingMsg = true;
+        setTimeout(() => {
+          this.existingMsg = false;
+        }, 2500);
+      } else {
+        product.quantity = 1;
+        this.cartService.sendToCart(productsToCart).subscribe(() => {
+          this.counterCart++;
+          this.insertToCart = true;
+          setTimeout(() => {
+            this.insertToCart = false;
+          }, 2500);
+        });
+      }
+    });
+  }
 }

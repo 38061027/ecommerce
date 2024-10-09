@@ -37,21 +37,22 @@
       "name": "jose",
       "hierarchy": "admin",
       "email": "jose23@gmail.com",
-      "password": "380610",
-      "cart": [
-        {
-          "productId": "3",
-          "productName": "Notebook",
-          "quantity": 4,
-          "totalValue": 8.888
-        },
-        {
-          "productId": "b0c6",
-          "productName": "Ventilador",
-          "quantity": 7,
-          "totalValue": 556.85
-        }
-      ]
+      "password": "380610"
+    }
+  ],
+  "cart": [
+    {
+      "productId": "3",
+      "productName": "Notebook",
+      "quantity": 4,
+      "totalValue": 8.888,
+      "id": "7b42",
+      "cart": {
+        "productId": "3",
+        "productName": "Notebook",
+        "quantity": 5,
+        "totalValue": 8.888
+      }
     }
   ]
 }
